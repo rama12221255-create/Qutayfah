@@ -1,0 +1,26 @@
+services:
+  - type: worker
+    name: yalla-go-telegram-bot
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_ID
+        sync: false
+      - key: BASE_FARE
+        value: "2.0"
+      - key: PRICE_PER_KM
+        value: "0.80"
+      - key: MIN_FARE
+        value: "3.0"
+      - key: DB_PATH
+        value: "/data/yalla_go.db"
+      - key: OSRM_URL
+        value: "https://router.project-osrm.org/route/v1/driving"
+    disk:
+      name: yalla-go-data
+      mountPath: /data
+      sizeGB: 1
